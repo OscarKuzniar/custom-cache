@@ -1,6 +1,7 @@
 package com.ok.cache.core;
 
 import com.ok.cache.domain.Room;
+import com.ok.cache.dto.CachingResponse;
 import com.ok.cache.dto.RoomChangeValue;
 import com.ok.cache.dto.RoomsChangeNotification;
 import com.ok.cache.repository.RoomDataSource;
@@ -38,6 +39,10 @@ public class RoomCache {
             RefreshContext context = new RefreshContext(this.cache, modificationMap, roomChange, this.dataSource);
             context.refresh();
         }
+
+        /* Info logs for debuging in console */
         log.info("Cache state after notification was processed: " + this.cache);
+        log.info("This could be after caching response sent via WebSocket: "
+                + CachingResponse.builder().updatedCachedRooms(modificationMap).build());
     }
 }
