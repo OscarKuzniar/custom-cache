@@ -1,7 +1,9 @@
 package com.ok.cache.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ok.cache.dto.RoomDeltaResponse;
 import com.ok.cache.event.ApplicationRoomEventInterceptor;
+import com.ok.cache.repository.RoomDataSource;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -38,5 +40,10 @@ public class Config implements WebMvcConfigurer {
         registry.addInterceptor(roomInterceptor()).addPathPatterns(
                 new ArrayList<>(ROOM_EVENT_TRACKED_URLS)
         );
+    }
+
+    @Bean
+    RoomDataSource roomDataSource() {
+        return delta -> RoomDeltaResponse.builder().build();
     }
 }
