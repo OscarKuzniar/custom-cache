@@ -9,6 +9,8 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
@@ -19,6 +21,8 @@ public class RoomCache {
     private Map<RequestKey, Set<Room>> cache;
 
     private final RoomDataSource dataSource;
+
+    private LocalDateTime lastUpdate;
 
     public RoomCache(RoomDataSource dataSource) {
         this.dataSource = dataSource;
@@ -39,10 +43,13 @@ public class RoomCache {
             RefreshContext context = new RefreshContext(this.cache, modificationMap, roomChange, this.dataSource);
             context.refresh();
         }
+        if (!modificationMap.isEmpty()) {
+            lastUpdate = LocalDateTime.now();
+        }
 
         /* Info logs for debuging in console */
-        log.info("Cache state after notification was processed: " + this.cache);
-        log.info("This could be after caching response sent via WebSocket: "
+        log.info("Cache state after notification was processed:\n" + this.cache);
+        log.info("This could be after caching response sent via WebSocket:\n"
                 + CachingResponse.builder().updatedCachedRooms(modificationMap).build());
     }
 }

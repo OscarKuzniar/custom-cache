@@ -1,7 +1,6 @@
 package com.ok.cache.repository;
 
 import com.ok.cache.domain.Room;
-import com.ok.cache.dto.RoomDeltaResponse;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -15,9 +14,8 @@ public interface RoomDataSource {
     /**
      * Mocked data
      **/
-    public List<Room> rooms = fill();
+    List<Room> rooms = fill();
 
-    RoomDeltaResponse getDeltaRooms(String delta);
 
     /**
      * MOCK

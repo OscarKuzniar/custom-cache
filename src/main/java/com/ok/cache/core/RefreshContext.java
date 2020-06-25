@@ -16,9 +16,9 @@ class RefreshContext {
                     Map<ActionKey, List<Room>> changeMap,
                     RoomChangeValue roomChange,
                     RoomDataSource dataSource) {
-        if (roomChange.getChangeType().equalsIgnoreCase("CREATED")) {
+        if (roomChange.getChangeType().equalsIgnoreCase(ActionKey.CREATED.toString())) {
             this.strategy = new CreateStrategy(cache, changeMap, roomChange, dataSource);
-        } else if (roomChange.getChangeType().equalsIgnoreCase("UPDATED")) {
+        } else if (roomChange.getChangeType().equalsIgnoreCase(ActionKey.UPDATED.toString())) {
             this.strategy = new UpdateStrategy(cache, changeMap, roomChange, dataSource);
         } else {
             this.strategy = new DeleteStrategy(cache, changeMap, roomChange);

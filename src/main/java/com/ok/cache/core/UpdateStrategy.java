@@ -25,7 +25,7 @@ class UpdateStrategy implements RefreshStrategy {
     }
     @Override
     public void refresh() {
-        List<RequestKey> keysToUpdate = cachedValues.entrySet().stream()
+        var keysToUpdate = cachedValues.entrySet().stream()
                 .filter(e -> e.getValue().contains(Room.builder().id(roomChange.getResourceData().getId()).build()))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
